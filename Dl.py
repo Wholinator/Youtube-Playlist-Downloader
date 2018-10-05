@@ -1,5 +1,7 @@
 import subprocess
 import os
+from mutagen.easymp4 import EasyMP4
+
 
 #directory to download files to
 dlDir = os.getcwd() + '\\dl\\'
@@ -13,7 +15,7 @@ if os.path.exists(dlDir):
             os.unlink(dlDir + file)
 
 # url of playlist to download
-url = "https://www.youtube.com/watch?v=tRhTe8rZHQc&list=PLQiJ2_8qupzdyUj7ZX7ujDNtFrbfwXKLR"
+url = "https://www.youtube.com/watch?v=u6zWRAxPVU0&list=PLVQk7v-6PrEH2_4sxegSVGsFPi8y7X4r9"
 
 # powershell command to be later executed
 power = "$Playlist = ((Invoke-WebRequest \"" + url + """\").Links | Where {$_.class -match "playlist-video"}).href
@@ -39,4 +41,20 @@ s = open("out.txt", "r")
 #iterate urls in file
 for sUrl in s:
     #download 128k audio m4a of file
+    #subprocess.call(["youtube-dl.exe", "--extract-audio", "--audio-format", "mp3", "-o", dlDir + "%(title)s.%(ext)s", sUrl])
     subprocess.call(["youtube-dl.exe", "-f", "140", "-o", dlDir + "%(title)s.%(ext)s", sUrl])
+
+
+band = input("The Band Name: ")
+album = input("The Album Name: ")
+
+
+for file in os.listdir(dlDir):
+    print("File Name: ", file)
+    metatag = EasyMP4(dlDir + file)
+    metatag['artist'] = band
+    metatag['album'] = album
+    metatag['title'] = input("Track Title?   ")
+    metatag['tracknumber'] = input("Track Number?    ")
+    metatag.save()
+
