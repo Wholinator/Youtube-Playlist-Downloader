@@ -7,7 +7,9 @@ dlDir = os.getcwd() + '\\dl\\'
 #delete files in the dlDir
 if os.path.exists(dlDir):
     if len(os.listdir(dlDir)) != 0:
+        print("Deleting dl folder contents: ")
         for file in os.listdir(dlDir):
+            print(file)
             os.unlink(dlDir + file)
 
 # url of playlist to download
@@ -37,4 +39,4 @@ s = open("out.txt", "r")
 #iterate urls in file
 for sUrl in s:
     #download 128k audio m4a of file
-    subprocess.call(["youtube-dl.exe", "-f", "140", sUrl])
+    subprocess.call(["youtube-dl.exe", "-f", "140", "-o", dlDir + "%(title)s.%(ext)s", sUrl])
