@@ -24,3 +24,7 @@ t = subprocess.call(["C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell
 # reopen our file to read from
 s = open("out.txt", "r")
 
+#iterate urls in file
+for sUrl in s:
+    #download 128k audio m4a of file
+    subprocess.call(["youtube-dl.exe", "-f", "140", sUrl])
