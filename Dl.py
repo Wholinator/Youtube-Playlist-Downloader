@@ -1,4 +1,14 @@
 import subprocess
+import os
+
+#directory to download files to
+dlDir = os.getcwd() + '\\dl\\'
+
+#delete files in the dlDir
+if os.path.exists(dlDir):
+    if len(os.listdir(dlDir)) != 0:
+        for file in os.listdir(dlDir):
+            os.unlink(dlDir + file)
 
 # url of playlist to download
 url = "https://www.youtube.com/watch?v=tRhTe8rZHQc&list=PLQiJ2_8qupzdyUj7ZX7ujDNtFrbfwXKLR"
